@@ -1,7 +1,7 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "deploy": {
-    "startCommand": "sh -c 'set -eu; attempt=1; while ! php artisan db:show --database=mysql >/dev/null 2>&1; do if [ \"$attempt\" -ge 60 ]; then echo \"MySQL did not become reachable after 120 seconds\" >&2; php artisan db:show --database=mysql; exit 1; fi; echo \"Waiting for MySQL ($attempt/60)...\"; attempt=$((attempt + 1)); sleep 2; done; php artisan migrate --seed --force; exec php artisan serve --host=0.0.0.0 --port=${PORT:-8080}'",
+    "startCommand": "sh -c 'set -eu; attempt=1; while ! php artisan db:show --database=mysql >/dev/null 2>&1; do if [ \"$attempt\" -ge 60 ]; then echo \"MySQL did not become reachable after 120 seconds\" >&2; php artisan db:show --database=mysql; exit 1; fi; echo \"Waiting for MySQL ($attempt/60)...\"; attempt=$((attempt + 1)); sleep 2; done; attempt=1; while ! php artisan migrate --force >/tmp/migrate.log 2>&1; do if ! grep -Fq \"Connection refused\" /tmp/migrate.log; then cat /tmp/migrate.log >&2; exit 1; fi; if [ \"$attempt\" -ge 60 ]; then cat /tmp/migrate.log >&2; exit 1; fi; echo \"MySQL refused migration connection ($attempt/60); retrying...\"; attempt=$((attempt + 1)); sleep 2; done; cat /tmp/migrate.log; php artisan db:seed --force; exec php artisan serve --host=0.0.0.0 --port=${PORT:-8080}'",
     "healthcheckPath": "/up",
     "healthcheckTimeout": 300
   }
