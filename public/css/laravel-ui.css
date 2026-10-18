@@ -1,0 +1,389 @@
+/* =============================================================================
+   Casa Vergara - Laravel-style modern UI layer
+   Loaded LAST on every page (after style.css, polish.css, modern.css).
+   Same navy / gold palette; cleaner, flatter "Laravel" look: Figtree type,
+   hairline borders, soft shadows, 0.5-0.75rem radii, calm focus rings,
+   and lighter (softer) text colours instead of heavy dark ink.
+   Delete this file (and its <link> tags) to go back to the previous look.
+   ========================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap");
+
+/* ---------- 1. Tokens (same colours, lighter text) ------------------------- */
+:root {
+  --primary: #0c3b5d;          /* unchanged: buttons, brand surfaces */
+  --primary-700: #0a3250;
+  --primary-50: #eff5fa;
+  --secondary: #2f86bd;
+  --accent: #d9b312;
+
+  /* lighter text scale (was #3a4560 / #1c2733 / #0c3b5d for headings) */
+  --cv-heading: #2a5f8a;
+  --cv-ink: #4a5a6e;
+  --text: #5b6b7f;
+  --dark: #44546a;
+  --cv-muted: #66768c;
+
+  --cv-canvas: #f8fafc;
+  --cv-surface: #ffffff;
+  --cv-line: #e8edf3;
+  --cv-line-strong: #d9e1ea;
+
+  --cv-r-sm: 0.5rem;
+  --cv-r-md: 0.625rem;
+  --cv-r-lg: 0.875rem;
+  --cv-r-xl: 1.125rem;
+
+  --cv-shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.04);
+  --cv-shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --cv-shadow-md: 0 8px 24px -6px rgba(16, 24, 40, 0.10), 0 2px 6px rgba(16, 24, 40, 0.04);
+  --cv-shadow-lg: 0 24px 48px -12px rgba(16, 24, 40, 0.18);
+  --cv-ring: 0 0 0 3px rgba(47, 134, 189, 0.22);
+
+  --bs-body-font-family: "Figtree", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bs-body-color: var(--text);
+  --bs-heading-color: var(--cv-heading);
+  --bs-secondary-color: var(--cv-muted);
+  --bs-border-color: var(--cv-line);
+  --bs-border-radius: var(--cv-r-sm);
+  --bs-border-radius-lg: var(--cv-r-md);
+}
+
+/* ---------- 2. Typography: Laravel-style clean sans ------------------------ */
+html body {
+  font-family: var(--bs-body-font-family);
+  color: var(--text);
+  background: var(--cv-canvas);
+  font-size: 0.97rem;
+  line-height: 1.65;
+}
+h1, h2, h3, h4, h5, h6,
+html body h1, html body h2, html body h3, html body h4, html body h5, html body h6,
+.section-heading h2, .login-panel h2, .admin-kpi-grid h3 {
+  font-family: var(--bs-body-font-family);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--cv-heading);
+}
+h1, .h1 { font-weight: 800; letter-spacing: -0.03em; }
+
+/* every "dark ink" utility becomes the softer palette */
+.text-brand, .text-primary-emphasis { color: var(--cv-heading) !important; }
+.text-muted-brand, .text-muted, .text-body-secondary { color: var(--cv-muted) !important; }
+.text-dark, .text-body, .link-dark, .text-black { color: var(--cv-ink) !important; }
+a.text-dark:hover, a.link-dark:hover { color: var(--cv-heading) !important; }
+.fw-semibold, .fw-bold, strong, b { color: inherit; }
+body .form-label, body .modal-title, body .accordion-button,
+body .table thead th { color: var(--cv-heading); }
+body .form-control, body .form-select { color: var(--dark); }
+body .form-control::placeholder { color: #a3b0c0; }
+body .table { color: var(--cv-ink); }
+body .dropdown-item, body .nav-link-luxury { color: var(--cv-ink); }
+body .nav-link-luxury:hover, body .nav-link-luxury.active, body .nav-link-luxury.text-brand,
+body .dropdown-item:hover { color: var(--cv-heading); }
+
+/* dark bands keep white text */
+.text-white h1, .text-white h2, .text-white h3, .text-white h4, .text-white h5, .text-white h6,
+.contact-hero-pro h1, .contact-hero-pro h2, .contact-hero-pro h3, .contact-hero-pro h4, .contact-hero-pro h5, .contact-hero-pro h6,
+.footer-main h5, .footer-main h6, .footer-title,
+.landing-testimonials-section h2, .landing-testimonials-section h3,
+.bg-brand h1, .bg-brand h2, .bg-brand h3, .bg-brand h4, .bg-brand h5, .bg-brand h6 { color: #fff; }
+.text-white .text-warning, .contact-hero-pro .text-warning { color: #f1cf45 !important; }
+
+/* ---------- 3. Navbar (public + staff portal) ------------------------------ */
+body .site-header {
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--cv-line);
+  box-shadow: none;
+}
+body .site-header.is-scrolled { box-shadow: 0 1px 0 var(--cv-line), 0 8px 24px -12px rgba(16, 24, 40, 0.12); }
+body .nav-link-luxury {
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-radius: var(--cv-r-sm);
+  padding: 0.45rem 0.8rem;
+}
+body .nav-link-luxury:hover { background: #f1f5f9; }
+body .nav-link-luxury.active,
+body .nav-link-luxury.text-brand { background: var(--primary-50); }
+body .nav-profile-btn { border-radius: var(--cv-r-md); box-shadow: var(--cv-shadow-xs); }
+body .dropdown-menu { border-radius: var(--cv-r-md); box-shadow: var(--cv-shadow-md) !important; padding: 0.35rem; }
+body .dropdown-item { border-radius: var(--cv-r-sm); }
+
+/* ---------- 4. Buttons: flat, confident, Laravel/Breeze-like --------------- */
+body .btn {
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  border-radius: var(--cv-r-sm);
+  padding: 0.58rem 1.05rem;
+  box-shadow: var(--cv-shadow-xs);
+}
+body .btn-lg { padding: 0.75rem 1.4rem; font-size: 0.98rem; border-radius: var(--cv-r-md); }
+body .btn-sm { padding: 0.36rem 0.75rem; font-size: 0.82rem; border-radius: 0.45rem; }
+
+body .btn-brand, body .btn-primary, body .btn-auth-primary {
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  color: #fff;
+  box-shadow: var(--cv-shadow-sm);
+}
+body .btn-brand:hover, body .btn-primary:hover, body .btn-auth-primary:hover,
+body .btn-brand:focus-visible, body .btn-primary:focus-visible {
+  background: #134c77;
+  border-color: #134c77;
+  color: #fff;
+  transform: none;
+  box-shadow: 0 6px 16px -4px rgba(12, 59, 93, 0.35);
+}
+body .btn-accent, body .btn-warning {
+  background: var(--accent);
+  border: 1px solid #c9a50f;
+  color: #3a3410;
+  box-shadow: var(--cv-shadow-sm);
+}
+body .btn-accent:hover, body .btn-warning:hover {
+  background: #e3bd1c; border-color: #c9a50f; color: #3a3410; transform: none;
+  box-shadow: 0 6px 16px -4px rgba(217, 179, 18, 0.5);
+}
+body .btn-outline-primary, body .btn-outline-brand, body .btn-outline-secondary, body .btn-light {
+  background: #fff;
+  border: 1px solid var(--cv-line-strong);
+  color: var(--cv-ink);
+  box-shadow: var(--cv-shadow-xs);
+}
+body .btn-outline-primary:hover, body .btn-outline-brand:hover, body .btn-outline-secondary:hover, body .btn-light:hover {
+  background: #f8fafc; border-color: #c3cfdc; color: var(--cv-heading); transform: none;
+}
+body .btn-outline-light { border: 1px solid rgba(255, 255, 255, 0.45); color: #fff; background: rgba(255, 255, 255, 0.06); box-shadow: none; }
+body .btn-outline-light:hover { background: rgba(255, 255, 255, 0.16); border-color: #fff; color: #fff; }
+body .btn:focus-visible { box-shadow: var(--cv-ring); }
+body .btn:active { transform: translateY(1px); }
+
+/* ---------- 5. Cards: white, hairline border, no hover "float" ------------- */
+body .soft-card, body .card, body .feature-card, body .hl-card, body .room-card,
+body .booking-event-card, body .customer-dash-tile, body .settings-overview-item,
+body .admin-table-card, body .faq-item {
+  background: var(--cv-surface);
+  border: 1px solid var(--cv-line);
+  border-radius: var(--cv-r-lg);
+  box-shadow: var(--cv-shadow-sm);
+}
+body .soft-card:hover, body .feature-card:hover, body .hl-card:hover, body .room-card:hover,
+body .booking-event-card:hover, body .customer-dash-tile:hover {
+  transform: none;
+  border-color: var(--cv-line-strong);
+  box-shadow: var(--cv-shadow-md);
+}
+body .soft-card h5, body .soft-card h6 { font-weight: 700; }
+body .feature-icon, body .contact-info-icon, body .settings-section-icon {
+  border-radius: var(--cv-r-md);
+  background: var(--primary-50);
+  color: var(--cv-heading);
+}
+a.contact-info-card:hover, a.contact-info-card:focus-visible { transform: translateY(-2px); }
+
+/* ---------- 6. Forms -------------------------------------------------------- */
+body .form-label { font-size: 0.84rem; font-weight: 600; }
+body .form-control, body .form-select, body .input-group-text {
+  min-height: 2.75rem;
+  border: 1px solid var(--cv-line-strong);
+  border-radius: var(--cv-r-sm);
+  box-shadow: var(--cv-shadow-xs);
+  font-size: 0.94rem;
+}
+body .form-control:focus, body .form-select:focus {
+  border-color: var(--secondary);
+  box-shadow: var(--cv-ring);
+}
+body .form-check-input { border-radius: 0.35rem; }
+body .form-check-input[type="radio"] { border-radius: 50%; }
+body .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+body .form-check-label { color: var(--cv-ink); }
+
+/* ---------- 7. Alerts, badges, pills --------------------------------------- */
+body .alert { border-radius: var(--cv-r-md); box-shadow: none; font-size: 0.92rem; }
+body .alert-danger { background: #fef2f2; border-color: #fbd5d5; color: #b4373f; }
+body .alert-success { background: #effaf4; border-color: #cdeedb; color: #1a7a55; }
+body .alert-warning { background: #fffaeb; border-color: #f6e5b0; color: #946c0c; }
+body .alert-info { background: #eff6fc; border-color: #cfe3f3; color: #25689a; }
+body .badge { border-radius: 999px; font-weight: 600; letter-spacing: 0.01em; padding: 0.38em 0.7em; }
+body .badge.text-bg-light { background: #f1f5f9 !important; color: var(--cv-ink) !important; }
+
+/* ---------- 8. Tables -------------------------------------------------------- */
+body .table { --bs-table-hover-bg: #f8fafc; }
+body .table thead th {
+  background: #f8fafc;
+  color: var(--cv-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--cv-line);
+}
+body .table > :not(caption) > * > * { border-bottom-color: var(--cv-line); }
+
+/* ---------- 9. Modals -------------------------------------------------------- */
+body .modal-content { border: 1px solid var(--cv-line); border-radius: var(--cv-r-lg); box-shadow: var(--cv-shadow-lg); }
+body .modal-header, body .modal-footer { border-color: var(--cv-line); }
+
+/* ---------- 10. Hero / contact sections -------------------------------------- */
+.contact-hero-pro {
+  background:
+    linear-gradient(135deg, rgba(9, 45, 70, 0.94), rgba(47, 134, 189, 0.86)),
+    url("https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
+}
+.contact-hero-panel { border-radius: var(--cv-r-lg); background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); }
+.contact-hero-icon { border-radius: var(--cv-r-md); }
+.contact-form-card { border-radius: var(--cv-r-lg); }
+.contact-main-section { background: var(--cv-canvas); }
+
+/* ---------- 11. Admin / staff shell ------------------------------------------ */
+body .admin-topbar { background: rgba(255, 255, 255, 0.85); border-bottom: 1px solid var(--cv-line); box-shadow: none; }
+body .admin-drawer, body .admin-sidebar-desktop { background: #fff; border-right: 1px solid var(--cv-line); }
+body .admin-drawer .nav-link, body .admin-sidebar-desktop .nav-link { color: var(--cv-ink); border-radius: var(--cv-r-sm); font-weight: 500; }
+body .admin-drawer .nav-link:hover:not(.active), body .admin-sidebar-desktop .nav-link:hover:not(.active) { background: #f1f5f9; color: var(--cv-heading); }
+body .admin-drawer .nav-link.active, body .admin-sidebar-desktop .nav-link.active {
+  background: var(--primary-50);
+  color: var(--primary);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+body .admin-main h1, body .admin-main .h2 { font-weight: 800; letter-spacing: -0.03em; }
+body .admin-kpi-grid .soft-card, body .report-stat-card, body .sitemap-stat {
+  border-left: 1px solid var(--cv-line);
+  border-top: 3px solid var(--secondary);
+}
+
+/* ---------- 12. Auth pages ---------------------------------------------------- */
+body .auth-card, body .login-panel { border-radius: var(--cv-r-xl); border: 1px solid var(--cv-line); box-shadow: var(--cv-shadow-md); }
+
+/* ---------- 13. Small polish -------------------------------------------------- */
+::selection { background: rgba(217, 179, 18, 0.3); color: var(--primary); }
+body .accordion-item { border-radius: var(--cv-r-md) !important; box-shadow: var(--cv-shadow-xs); }
+body .accordion-button:not(.collapsed) { background: var(--primary-50); color: var(--cv-heading); }
+body .nav-tabs .nav-link.active, body .nav-pills .nav-link.active { color: var(--primary); }
+body .page-link { border-radius: var(--cv-r-sm); color: var(--cv-ink); }
+body .page-item.active .page-link { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+/* contact info cards: content starts at the top so all four line up */
+.contact-info-card { justify-content: flex-start; }
+
+/* light landing hero: soft-navy heading, blue highlight line, readable intro text */
+.landing-hero h1, .landing-hero h1.text-dark { color: var(--cv-heading) !important; }
+.landing-hero h1 .text-secondary { color: var(--secondary) !important; }
+.landing-hero .lead, .landing-hero .hero-description { color: var(--cv-ink) !important; }
+
+/* ---------- Light CTA panels ("Ready for Your Dream Vacation?", "Join Our Story") ---------- */
+.landing-cta-panel {
+  border: 1px solid var(--cv-line);
+  box-shadow: var(--cv-shadow-md);
+  background: #fff;
+}
+.landing-cta-panel::after { box-shadow: none; }
+.landing-cta-panel-text {
+  background: linear-gradient(155deg, #ffffff 0%, #f1f7fc 60%, #e3f0fa 100%);
+}
+.landing-cta-panel-text::before {
+  background: radial-gradient(circle, rgba(217, 179, 18, 0.20), transparent 72%);
+}
+.landing-cta-kicker {
+  color: #8a6d05;
+  background: var(--accent-soft, #fbf5d9);
+  border: 1px solid rgba(217, 179, 18, 0.45);
+}
+.landing-cta-panel h2, .landing-cta-panel h2.text-white { color: var(--cv-heading) !important; }
+.landing-cta-text-v2 { color: var(--cv-ink) !important; }
+.btn-cta-ghost {
+  border: 1px solid var(--cv-line-strong);
+  background: #fff;
+  color: var(--cv-heading);
+}
+.btn-cta-ghost:hover { background: #f8fafc; border-color: #c3cfdc; color: var(--cv-heading); }
+
+/* =============================================================================
+   CTA panels: responsive layout + animation + touch feedback
+   ========================================================================== */
+.landing-cta-panel {
+  width: 100%;
+  transition: transform 0.35s var(--cv-ease), box-shadow 0.35s var(--cv-ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.landing-cta-panel-text > * { position: relative; z-index: 1; }
+.landing-cta-panel-text h2 { font-size: clamp(1.6rem, 4.2vw, 2.4rem); line-height: 1.15; }
+.landing-cta-text-v2 { font-size: clamp(0.98rem, 2.2vw, 1.15rem); }
+
+/* entrance: panel rises in, then text and image settle one after another */
+.landing-cta-panel.cv-anim { opacity: 0; transform: translateY(28px) scale(0.985); }
+.landing-cta-panel.cv-anim.is-in {
+  opacity: 1; transform: none;
+  transition: opacity 0.7s var(--cv-ease), transform 0.7s var(--cv-ease), box-shadow 0.35s var(--cv-ease);
+}
+.landing-cta-panel.cv-anim .landing-cta-panel-text > * { opacity: 0; transform: translateY(14px); }
+.landing-cta-panel.cv-anim.is-in .landing-cta-panel-text > * {
+  opacity: 1; transform: none;
+  transition: opacity 0.6s var(--cv-ease), transform 0.6s var(--cv-ease);
+}
+.landing-cta-panel.is-in .landing-cta-panel-text > *:nth-child(1) { transition-delay: 0.15s; }
+.landing-cta-panel.is-in .landing-cta-panel-text > *:nth-child(2) { transition-delay: 0.25s; }
+.landing-cta-panel.is-in .landing-cta-panel-text > *:nth-child(3) { transition-delay: 0.35s; }
+.landing-cta-panel.is-in .landing-cta-panel-text > *:nth-child(4) { transition-delay: 0.45s; }
+.landing-cta-panel.cv-anim .landing-cta-panel-img { transform: scale(1.12); }
+.landing-cta-panel.cv-anim.is-in .landing-cta-panel-img { transform: scale(1); transition: transform 1.6s var(--cv-ease); }
+
+/* floating badge gently bobs; sparkle icon pulses */
+.landing-cta-floating-badge { animation: cvFloat 4s ease-in-out infinite; }
+.landing-cta-floating-badge i { animation: cvPulse 2.6s ease-in-out infinite; }
+.landing-cta-kicker i { display: inline-block; animation: cvTwinkle 2.4s ease-in-out infinite; }
+@keyframes cvFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes cvPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(217, 179, 18, 0.35); } 50% { box-shadow: 0 0 0 8px rgba(217, 179, 18, 0); } }
+@keyframes cvTwinkle { 0%, 100% { transform: scale(1) rotate(0); } 50% { transform: scale(1.25) rotate(12deg); } }
+
+/* hover (mouse) and press (touch) feedback */
+@media (hover: hover) {
+  .landing-cta-panel:hover { transform: translateY(-4px); box-shadow: var(--cv-shadow-lg); }
+  .landing-cta-panel:hover .landing-cta-panel-img { transform: scale(1.06); }
+}
+.landing-cta-panel:active { transform: scale(0.992); }
+.landing-cta-panel.is-touched .landing-cta-panel-img { transform: scale(1.06); transition: transform 0.6s var(--cv-ease); }
+.landing-cta-panel .btn { position: relative; overflow: hidden; }
+.landing-cta-panel .btn:active { transform: scale(0.96); }
+
+/* tap ripple (added by JS on touch / click) */
+.cv-ripple {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: rgba(12, 59, 93, 0.18); transform: scale(0);
+  animation: cvRipple 0.6s ease-out forwards;
+}
+.btn-accent .cv-ripple, .btn-brand .cv-ripple { background: rgba(255, 255, 255, 0.45); }
+@keyframes cvRipple { to { transform: scale(4); opacity: 0; } }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+  .landing-cta-panel { border-radius: var(--cv-r-xl); }
+  .landing-cta-panel-media { order: -1; min-height: 0; aspect-ratio: 16 / 9; }
+  .landing-cta-panel-media::before {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.0) 60%, rgba(6, 26, 42, 0.18) 100%);
+  }
+  .landing-cta-panel-text { padding: 1.75rem 1.5rem 2rem !important; align-items: center; text-align: center; }
+  .landing-cta-kicker { align-self: center; }
+  .landing-cta-text-v2 { margin-inline: auto; }
+  .landing-cta-panel-text .d-flex { justify-content: center; }
+}
+@media (max-width: 575.98px) {
+  .landing-cta-section-v2, .about-cta-section { padding-block: 2rem; }
+  .landing-cta-panel-media { aspect-ratio: 4 / 3; }
+  .landing-cta-floating-badge { left: 0.75rem; bottom: 0.75rem; padding: 0.5rem 0.8rem; }
+  .landing-cta-panel-text .d-flex { flex-direction: column; width: 100%; }
+  .landing-cta-panel-text .btn { width: 100%; }
+}
+
+/* site-wide touch feedback for buttons and cards */
+@media (hover: none) {
+  body .btn:active { transform: scale(0.97); }
+  body .soft-card:active, body .room-card:active, body .feature-card:active { transform: scale(0.985); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-cta-panel.cv-anim, .landing-cta-panel.cv-anim .landing-cta-panel-text > * { opacity: 1 !important; transform: none !important; }
+  .landing-cta-floating-badge, .landing-cta-floating-badge i, .landing-cta-kicker i, .cv-ripple { animation: none !important; }
+}

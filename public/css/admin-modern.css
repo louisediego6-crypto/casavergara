@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Admin + Staff portal — modern look matched to the public website.
+   Palette: navy #0c3b5d, blue #328bc3, gold #d9b312 (same tokens as the site).
+   Loaded last on every admin page, so it restyles shared admin markup only.
+   ========================================================================== */
+
+.admin-wrap {
+  --am-navy: #0c3b5d;
+  --am-blue: #328bc3;
+  --am-gold: #d9b312;
+  --am-ink: #1f2d3d;
+  --am-muted: #5b6b7f;
+  --am-line: #e3eaf1;
+  --am-surface: #ffffff;
+  --am-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  min-height: 100vh;
+  background:
+    radial-gradient(60rem 30rem at 0% -10%, rgba(50, 139, 195, 0.08), transparent 60%),
+    radial-gradient(50rem 26rem at 100% 0%, rgba(217, 179, 18, 0.07), transparent 60%),
+    #f4f7fb;
+  color: var(--am-ink);
+}
+
+/* ---- top bar ----------------------------------------------------------- */
+.admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid var(--am-line);
+  box-shadow: 0 6px 22px rgba(12, 59, 93, 0.06);
+}
+.admin-topbar-brand { font-family: "Playfair Display", serif; font-weight: 700; color: var(--am-navy); text-decoration: none; }
+.admin-topbar-section-eyebrow { color: var(--am-muted); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.admin-topbar-section-title { color: var(--am-navy); font-weight: 600; }
+.admin-nav-toggle {
+  background: var(--am-navy) !important;
+  color: #fff !important;
+  border-radius: 0.8rem !important;
+  box-shadow: 0 8px 18px rgba(12, 59, 93, 0.25);
+  transition: transform 0.25s var(--am-ease), box-shadow 0.25s var(--am-ease);
+}
+.admin-nav-toggle:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(12, 59, 93, 0.3); }
+.admin-icon-btn { border-radius: 0.8rem; transition: background 0.2s ease, transform 0.2s ease; }
+.admin-icon-btn:hover { background: #eaf3fa; transform: translateY(-1px); }
+
+/* ---- page header ------------------------------------------------------- */
+.admin-page-head h1,
+.admin-page-head .display-5,
+.admin-page-head .h2 {
+  font-family: "Playfair Display", serif;
+  color: var(--am-navy);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.admin-page-head .text-muted-brand { color: var(--am-muted) !important; }
+
+/* ---- cards ------------------------------------------------------------- */
+.admin-wrap .soft-card {
+  background: var(--am-surface);
+  border: 1px solid var(--am-line);
+  border-radius: 1.1rem;
+  box-shadow: 0 10px 28px rgba(12, 59, 93, 0.06);
+  transition: transform 0.3s var(--am-ease), box-shadow 0.3s var(--am-ease), border-color 0.3s ease;
+}
+.admin-wrap .soft-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(12, 59, 93, 0.1);
+  border-color: rgba(50, 139, 195, 0.35);
+}
+.admin-kpi-grid .soft-card { position: relative; overflow: hidden; }
+.admin-kpi-grid .soft-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--am-blue), var(--am-gold));
+  opacity: 0.85;
+}
+.admin-kpi-grid .soft-card .fs-2,
+.admin-kpi-grid .soft-card .fs-3,
+.admin-kpi-grid .soft-card .h2,
+.admin-kpi-grid .soft-card .h3 {
+  font-family: "Playfair Display", serif;
+  color: var(--am-navy);
+  font-variant-numeric: tabular-nums;
+}
+.admin-filter-label { color: var(--am-navy); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* ---- buttons ----------------------------------------------------------- */
+.admin-wrap .btn-brand,
+.admin-wrap .btn-primary {
+  background: linear-gradient(135deg, var(--am-navy), #14507a) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  border-radius: 0.8rem;
+  box-shadow: 0 8px 18px rgba(12, 59, 93, 0.2);
+  transition: transform 0.25s var(--am-ease), box-shadow 0.25s var(--am-ease);
+}
+.admin-wrap .btn-brand:hover,
+.admin-wrap .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(12, 59, 93, 0.28); }
+.admin-wrap .btn-outline-primary,
+.admin-wrap .btn-outline-secondary {
+  border-radius: 0.8rem;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.admin-wrap .btn-outline-primary:hover { transform: translateY(-1px); }
+.admin-wrap .form-control,
+.admin-wrap .form-select {
+  border-radius: 0.8rem;
+  border-color: var(--am-line);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.admin-wrap .form-control:focus,
+.admin-wrap .form-select:focus {
+  border-color: var(--am-blue);
+  box-shadow: 0 0 0 0.2rem rgba(50, 139, 195, 0.18);
+}
+
+/* ---- tables ------------------------------------------------------------ */
+.admin-table-card { overflow: hidden; }
+.admin-wrap .table { --bs-table-bg: transparent; }
+.admin-wrap .table thead th {
+  background: #f1f6fb;
+  color: var(--am-navy);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--am-line);
+  white-space: nowrap;
+}
+.admin-wrap .table tbody tr { transition: background 0.2s ease; }
+.admin-wrap .table tbody tr:hover { background: #f7fbfe; }
+.admin-wrap .table td { border-color: #eef3f8; vertical-align: middle; }
+.admin-wrap .table-responsive,
+.admin-wrap .admin-table-card .table-responsive { -webkit-overflow-scrolling: touch; }
+
+/* ---- badges & chips ---------------------------------------------------- */
+.admin-wrap .badge { border-radius: 999px; font-weight: 600; }
+.admin-result-badge { background: #eaf3fa !important; color: var(--am-navy) !important; border-color: transparent !important; }
+
+/* ---- entrance animation: staggered rise on load ------------------------ */
+@keyframes adminRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.admin-wrap .admin-main > *,
+.admin-wrap .admin-main > .admin-page-head,
+.admin-wrap .admin-main > .row > [class*="col"] > .soft-card {
+  animation: adminRise 0.6s var(--am-ease) both;
+}
+.admin-wrap .admin-main > *:nth-child(2) { animation-delay: 0.05s; }
+.admin-wrap .admin-main > *:nth-child(3) { animation-delay: 0.1s; }
+.admin-wrap .admin-main > *:nth-child(4) { animation-delay: 0.15s; }
+.admin-wrap .admin-main > *:nth-child(5) { animation-delay: 0.2s; }
+.admin-kpi-grid > [class*="col"]:nth-child(2) .soft-card { animation-delay: 0.08s; }
+.admin-kpi-grid > [class*="col"]:nth-child(3) .soft-card { animation-delay: 0.16s; }
+.admin-kpi-grid > [class*="col"]:nth-child(4) .soft-card { animation-delay: 0.24s; }
+
+/* ---- responsive -------------------------------------------------------- */
+.admin-main { padding-left: clamp(0.9rem, 2.5vw, 2rem); padding-right: clamp(0.9rem, 2.5vw, 2rem); }
+@media (max-width: 991.98px) {
+  .admin-page-head { gap: 0.75rem; }
+  .admin-page-head h1, .admin-page-head .display-5 { font-size: 1.9rem; }
+}
+@media (max-width: 767.98px) {
+  .admin-wrap .soft-card { border-radius: 0.95rem; }
+  .admin-wrap .table { font-size: 0.85rem; }
+  .admin-wrap .table thead th { font-size: 0.66rem; }
+  .admin-wrap .btn { white-space: normal; }
+  .admin-page-head h1, .admin-page-head .display-5 { font-size: 1.6rem; }
+  .admin-topbar-section-eyebrow { display: none; }
+}
+@media (max-width: 575.98px) {
+  .admin-topbar-divider, .admin-topbar-section { display: none !important; }
+  .admin-wrap .soft-card { padding: 0.9rem !important; }
+}
+
+
+/* ---- top bar: stays pinned, logo and brand font always visible --------- */
+/* The top bar is wrapped in #admin-sidebar; that wrapper has to be the sticky
+   element, otherwise the bar scrolls away with the page. */
+#admin-sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+.admin-topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 72px;
+}
+.admin-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+.admin-topbar-brand .brand-logo {
+  display: block;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--am-line);
+  padding: 4px !important;
+  opacity: 1 !important;
+}
+.admin-topbar-brand .brand-title,
+.admin-topbar-brand strong,
+.admin-topbar-section-title {
+  font-family: "Playfair Display", Georgia, serif !important;
+  color: var(--am-navy) !important;
+  line-height: 1.15;
+}
+.admin-topbar-section-title { font-size: 1.05rem; font-weight: 700; }
+
+/* ---- pills (e.g. Site Content tabs): active label must stay visible ----- */
+.admin-wrap .nav-pills .nav-link {
+  color: var(--am-navy);
+  border-radius: 999px;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s var(--am-ease);
+}
+.admin-wrap .nav-pills .nav-link:hover { transform: translateY(-1px); background: #eaf3fa; }
+.admin-wrap .nav-pills .nav-link.active,
+.admin-wrap .nav-pills .show > .nav-link {
+  background: linear-gradient(135deg, var(--am-navy), #14507a) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 18px rgba(12, 59, 93, 0.22);
+}
+.admin-wrap .nav-pills .nav-link.active i,
+.admin-wrap .nav-pills .show > .nav-link i { color: #fff !important; }
+
+
+/* ---- logos & guest photos ---------------------------------------------- */
+.admin-drawer-head { display: flex; align-items: center; gap: 0.75rem; }
+.admin-drawer-logo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--am-line);
+  border-radius: 0.8rem;
+  padding: 4px;
+}
+.reservation-avatar--img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(12, 59, 93, 0.18);
+}
+
+
+/* ---- side menu: the active page's icon must stay visible ---------------- */
+/* The active link used to turn its icon white on a light tile, so the icon
+   for the page you were on disappeared. Keep icon and label navy when active. */
+.admin-drawer .nav-link .bi,
+.admin-drawer .nav-link i {
+  color: var(--am-navy) !important;
+}
+.admin-drawer .nav-link.active,
+.admin-drawer .nav-link.active .bi,
+.admin-drawer .nav-link.active i,
+.admin-drawer .nav-link.active span {
+  color: var(--am-navy) !important;
+}
+.admin-drawer .nav-link.active {
+  background: #eaf3fa !important;
+  font-weight: 700;
+}
+.admin-drawer .nav-link.active .bi,
+.admin-drawer .nav-link.active i {
+  background: #fff;
+  border-radius: 0.6rem;
+  box-shadow: 0 2px 8px rgba(12, 59, 93, 0.12);
+}
+
+/* ---- respect reduced motion ------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .admin-wrap *, .admin-wrap *::before, .admin-wrap *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

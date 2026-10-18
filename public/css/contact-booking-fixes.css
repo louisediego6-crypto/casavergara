@@ -1,0 +1,12 @@
+/* Contact info cards: equal height, bottom-aligned links, long emails wrap cleanly */
+.contact-info-grid > .col { display: flex; }
+.contact-info-grid .contact-info-card {
+  height: 100%;
+  min-height: 100%;
+}
+.contact-info-grid .contact-info-card > p {
+  overflow-wrap: anywhere;
+}
+.contact-info-grid .contact-info-card > span:last-child {
+  margin-top: auto;
+}

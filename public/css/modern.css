@@ -1,0 +1,673 @@
+/* =============================================================================
+   Casa Vergara — Modern design system
+   Loaded LAST (after style.css and polish.css) on every page. Keeps the resort's
+   navy & gold identity, but with cleaner cards, calmer spacing, better forms and
+   tables, and proper phone / tablet behaviour. Safe to delete this file to go back
+   to the old look.
+   ========================================================================== */
+
+/* ---------- 1. Design tokens ---------------------------------------------- */
+:root {
+  --primary: #0c3b5d;
+  --primary-700: #0a3250;
+  --primary-50: #eef4f9;
+  --secondary: #2f86bd;
+  --accent: #d9b312;
+  --accent-soft: #fbf5d9;
+  --text: #3a4560;
+  --dark: #1c2733;
+  --bg-light: #f5f7fa;
+
+  --cv-surface: #ffffff;
+  --cv-canvas: #f5f7fa;
+  --cv-line: #e5ebf1;
+  --cv-line-strong: #d5dee8;
+  --cv-muted: #6c7a8d;
+
+  --cv-r-sm: 0.6rem;
+  --cv-r-md: 0.85rem;
+  --cv-r-lg: 1.25rem;
+  --cv-r-xl: 1.75rem;
+
+  --cv-shadow-xs: 0 1px 2px rgba(12, 35, 56, 0.05);
+  --cv-shadow-sm: 0 2px 8px rgba(12, 35, 56, 0.06);
+  --cv-shadow-md: 0 10px 28px rgba(12, 35, 56, 0.09);
+  --cv-shadow-lg: 0 22px 50px rgba(12, 35, 56, 0.14);
+  --cv-ring: 0 0 0 4px rgba(47, 134, 189, 0.18);
+
+  --cv-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --ui-radius-sm: var(--cv-r-sm);
+  --ui-radius-md: var(--cv-r-md);
+  --ui-radius-lg: var(--cv-r-lg);
+  --ui-border: var(--cv-line);
+  --ui-border-strong: var(--cv-line-strong);
+  --ui-shadow-soft: var(--cv-shadow-sm);
+  --ui-shadow-hover: var(--cv-shadow-md);
+
+  --bs-body-font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bs-border-radius: var(--cv-r-sm);
+  --bs-border-radius-lg: var(--cv-r-md);
+  --bs-link-color-rgb: 47, 134, 189;
+}
+
+/* ---------- 2. Base ------------------------------------------------------- */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--bs-body-font-family);
+  color: var(--text);
+  background: var(--cv-canvas);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 { color: var(--primary); letter-spacing: -0.01em; line-height: 1.25; }
+h1, h2, .section-heading h2 { font-family: "Playfair Display", Georgia, serif; font-weight: 700; }
+
+p { text-wrap: pretty; }
+img, video, svg { max-width: 100%; }
+img { height: auto; }
+
+::selection { background: rgba(217, 179, 18, 0.28); color: var(--primary); }
+
+a { text-underline-offset: 3px; }
+
+:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.section-pad { padding-block: clamp(2.75rem, 6vw, 5.5rem); }
+
+.container { padding-inline: clamp(1rem, 3vw, 1.5rem); }
+
+.section-heading { margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.section-heading h2 { font-size: clamp(1.65rem, 3.2vw, 2.35rem); }
+.section-heading p { color: var(--cv-muted); max-width: 46rem; margin-inline: auto; }
+
+/* ---------- 3. Navbar ----------------------------------------------------- */
+body .site-header {
+  background: rgba(255, 255, 255, 0.86);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid rgba(213, 222, 232, 0.7);
+}
+body .site-header.is-scrolled { box-shadow: 0 6px 22px rgba(12, 35, 56, 0.09); background: rgba(255, 255, 255, 0.94); }
+
+.nav-main-wrap { min-height: 4rem; }
+
+body .nav-link-luxury {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text);
+  border-radius: 0.6rem;
+  transition: color 0.2s var(--cv-ease), background-color 0.2s var(--cv-ease);
+}
+body .nav-link-luxury:hover { color: var(--primary); background: var(--primary-50); }
+body .nav-link-luxury.text-brand,
+body .nav-link-luxury.active { color: var(--primary); font-weight: 600; }
+
+body .nav-profile-btn {
+  border: 1px solid var(--cv-line-strong);
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem 0.3rem 0.35rem;
+  box-shadow: var(--cv-shadow-xs);
+  transition: box-shadow 0.2s var(--cv-ease), border-color 0.2s var(--cv-ease);
+}
+body .nav-profile-btn:hover { border-color: var(--secondary); box-shadow: var(--cv-shadow-sm); }
+
+body .dropdown-menu {
+  border: 1px solid var(--cv-line) !important;
+  border-radius: var(--cv-r-md);
+  box-shadow: var(--cv-shadow-lg) !important;
+  padding: 0.4rem;
+  animation: cvPop 0.16s var(--cv-ease) both;
+}
+body .dropdown-item {
+  border-radius: 0.55rem;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+}
+body .dropdown-item:hover,
+body .dropdown-item:focus { background: var(--primary-50); color: var(--primary); }
+body .dropdown-item.text-danger:hover { background: #fdecee; }
+
+@keyframes cvPop {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- 4. Buttons ---------------------------------------------------- */
+body .btn {
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  border-radius: var(--cv-r-md);
+  padding: 0.62rem 1.15rem;
+  transition: transform 0.18s var(--cv-ease), box-shadow 0.18s var(--cv-ease),
+              background-color 0.18s var(--cv-ease), border-color 0.18s var(--cv-ease), color 0.18s var(--cv-ease);
+}
+body .btn:active { transform: translateY(0) scale(0.985); }
+body .btn:focus-visible { box-shadow: var(--cv-ring); outline: none; }
+body .btn-sm { padding: 0.4rem 0.8rem; border-radius: var(--cv-r-sm); font-size: 0.85rem; }
+body .btn-lg { padding: 0.8rem 1.6rem; font-size: 1.02rem; border-radius: 0.95rem; }
+
+body .btn-brand,
+body .btn-primary {
+  background: linear-gradient(180deg, #11507d 0%, var(--primary) 100%);
+  color: #fff;
+  border: 0;
+  box-shadow: 0 6px 16px rgba(12, 59, 93, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+body .btn-brand:hover,
+body .btn-primary:hover {
+  background: linear-gradient(180deg, #145a8c 0%, var(--primary-700) 100%);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(12, 59, 93, 0.28);
+}
+
+body .btn-accent,
+body .btn-warning {
+  background: linear-gradient(180deg, #e6c52f 0%, var(--accent) 100%);
+  color: #1f2a37;
+  border: 0;
+  box-shadow: 0 8px 18px rgba(217, 179, 18, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+body .btn-accent:hover,
+body .btn-warning:hover {
+  background: linear-gradient(180deg, #edcf3f 0%, #cfa80f 100%);
+  color: #1f2a37;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px rgba(217, 179, 18, 0.4);
+}
+
+body .btn-outline-primary,
+body .btn-outline-brand,
+body .btn-outline-secondary,
+body .btn-light {
+  background: #fff;
+  border: 1px solid var(--cv-line-strong);
+  color: var(--primary);
+  box-shadow: var(--cv-shadow-xs);
+}
+body .btn-outline-primary:hover,
+body .btn-outline-brand:hover,
+body .btn-outline-secondary:hover,
+body .btn-light:hover {
+  background: var(--primary-50);
+  border-color: var(--secondary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+body .btn-outline-danger { border-radius: var(--cv-r-md); }
+body .btn[disabled], body .btn.disabled { opacity: 0.55; transform: none; box-shadow: none; }
+
+/* ---------- 5. Cards ------------------------------------------------------ */
+body .soft-card,
+body .card,
+body .feature-card,
+body .hl-card,
+body .room-card,
+body .booking-event-card,
+body .customer-dash-tile,
+body .settings-overview-item {
+  background: var(--cv-surface);
+  border: 1px solid var(--cv-line);
+  border-radius: var(--cv-r-lg);
+  box-shadow: var(--cv-shadow-sm);
+}
+
+body .soft-card,
+body .feature-card,
+body .hl-card,
+body .room-card,
+body .booking-event-card,
+body .customer-dash-tile {
+  transition: transform 0.25s var(--cv-ease), box-shadow 0.25s var(--cv-ease), border-color 0.25s var(--cv-ease);
+}
+body .soft-card:hover,
+body .feature-card:hover,
+body .hl-card:hover,
+body .room-card:hover,
+body .booking-event-card:hover,
+body .customer-dash-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--cv-shadow-md);
+  border-color: var(--cv-line-strong);
+}
+
+/* testimonial cards sit on the dark navy band: keep them glassy, with light text */
+body .landing-testimonials-section .testimonial-card {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--cv-r-lg);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+/* cards that hold forms / tables should not float on hover */
+body .admin-main .soft-card:hover,
+body .auth-card:hover,
+body .login-panel:hover,
+body .admin-table-card:hover { transform: none; }
+
+body .room-card { overflow: hidden; }
+body .room-card .room-cover { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+body .room-card-body { padding: clamp(1rem, 2vw, 1.35rem); }
+body .room-card-footer { border-top: 1px solid var(--cv-line); padding-top: 0.9rem; margin-top: auto; }
+
+body .feature-icon { border-radius: 16px; background: var(--primary-50); color: var(--primary); }
+
+body .faq-item {
+  border: 1px solid var(--cv-line);
+  border-radius: var(--cv-r-md);
+  background: #fff;
+  box-shadow: var(--cv-shadow-xs);
+}
+
+body .accordion-item { border: 1px solid var(--cv-line); border-radius: var(--cv-r-md) !important; overflow: hidden; margin-bottom: 0.6rem; }
+body .accordion-button { font-weight: 600; color: var(--primary); }
+body .accordion-button:not(.collapsed) { background: var(--primary-50); color: var(--primary); box-shadow: none; }
+
+/* ---------- 6. Forms ------------------------------------------------------ */
+body .form-label { font-weight: 600; font-size: 0.86rem; color: var(--primary); margin-bottom: 0.4rem; }
+
+body .form-control,
+body .form-select,
+body .input-group-text {
+  min-height: 2.9rem;
+  border: 1px solid var(--cv-line-strong);
+  border-radius: var(--cv-r-md);
+  background-color: #fff;
+  color: var(--dark);
+  font-size: 0.96rem;
+  transition: border-color 0.18s var(--cv-ease), box-shadow 0.18s var(--cv-ease), background-color 0.18s var(--cv-ease);
+}
+body textarea.form-control { min-height: 6.5rem; }
+body .form-control::placeholder { color: #9aa7b6; }
+body .form-control:hover,
+body .form-select:hover { border-color: #b9c8d8; }
+body .form-control:focus,
+body .form-select:focus {
+  border-color: var(--secondary);
+  box-shadow: var(--cv-ring);
+  background-color: #fff;
+}
+body .form-control:disabled,
+body .form-select:disabled,
+body .form-control[readonly] { background: #f1f4f8; color: var(--cv-muted); }
+
+body .input-group > .form-control:not(:first-child),
+body .input-group > .form-select:not(:first-child),
+body .input-group > .input-group-text:not(:first-child) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+body .input-group > :not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+body .input-group-text { background: #f7f9fc; color: var(--cv-muted); }
+
+body .form-check-input { width: 1.15rem; height: 1.15rem; border-color: var(--cv-line-strong); cursor: pointer; }
+body .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+body .form-check-input:focus { box-shadow: var(--cv-ring); border-color: var(--secondary); }
+body .form-switch .form-check-input { width: 2.4rem; height: 1.3rem; }
+
+body .invalid-feedback, body .form-text { font-size: 0.8rem; }
+
+/* ---------- 7. Alerts, badges, toasts, tabs, pagination ------------------- */
+body .alert {
+  border: 1px solid transparent;
+  border-radius: var(--cv-r-md);
+  padding: 0.85rem 1.05rem;
+  font-size: 0.93rem;
+  box-shadow: var(--cv-shadow-xs);
+}
+body .alert-success { background: #eaf7f0; border-color: #c9ebd9; color: #14684a; }
+body .alert-danger  { background: #fdeef0; border-color: #f6ccd2; color: #9b2335; }
+body .alert-warning { background: var(--accent-soft); border-color: #f0e2a0; color: #7a5d05; }
+body .alert-info    { background: #eaf4fb; border-color: #c6e0f1; color: #205a7e; }
+
+body .badge { font-weight: 600; letter-spacing: 0.01em; border-radius: 999px; padding: 0.4em 0.75em; }
+
+body .status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+body .nav-tabs { border-bottom: 1px solid var(--cv-line); gap: 0.25rem; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+body .nav-tabs::-webkit-scrollbar { display: none; }
+body .nav-tabs .nav-link { border: 0; border-bottom: 2px solid transparent; border-radius: 0; color: var(--cv-muted); font-weight: 600; white-space: nowrap; }
+body .nav-tabs .nav-link:hover { color: var(--primary); }
+body .nav-tabs .nav-link.active { color: var(--primary); border-bottom-color: var(--accent); background: transparent; }
+
+body .nav-pills .nav-link { border-radius: 999px; font-weight: 600; color: var(--text); }
+body .nav-pills .nav-link.active { background: var(--primary); color: #fff; }
+
+body .page-link { border-radius: var(--cv-r-sm) !important; margin-inline: 0.15rem; border-color: var(--cv-line); color: var(--primary); }
+body .page-item.active .page-link { background: var(--primary); border-color: var(--primary); }
+
+body .notification-toast,
+body .toast {
+  border: 1px solid var(--cv-line);
+  border-radius: var(--cv-r-md);
+  box-shadow: var(--cv-shadow-lg);
+}
+
+/* ---------- 8. Modals ----------------------------------------------------- */
+body .modal-content {
+  border: 0;
+  border-radius: var(--cv-r-lg);
+  box-shadow: var(--cv-shadow-lg);
+  overflow: hidden;
+}
+body .modal-header { border-bottom: 1px solid var(--cv-line); padding: 1.1rem 1.4rem; }
+body .modal-title { font-weight: 700; color: var(--primary); }
+body .modal-body { padding: 1.4rem; }
+body .modal-footer { border-top: 1px solid var(--cv-line); padding: 0.9rem 1.4rem; gap: 0.5rem; }
+body .modal-backdrop.show { opacity: 0.45; }
+
+/* ---------- 9. Tables ----------------------------------------------------- */
+body .table { --bs-table-hover-bg: #f6f9fc; color: var(--text); margin-bottom: 0; }
+body .table > :not(caption) > * > * { padding: 0.9rem 1rem; border-bottom-color: var(--cv-line); vertical-align: middle; }
+body .table thead th {
+  background: #f6f9fc;
+  color: var(--primary);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--cv-line-strong);
+  white-space: nowrap;
+}
+body .table tbody tr { transition: background-color 0.15s ease; }
+body .table-hover > tbody > tr:hover > * { background-color: #f6f9fc; }
+
+body .table-responsive { -webkit-overflow-scrolling: touch; border-radius: var(--cv-r-md); }
+
+body .admin-table-card {
+  background: #fff;
+  border: 1px solid var(--cv-line);
+  border-radius: var(--cv-r-lg);
+  box-shadow: var(--cv-shadow-sm);
+  overflow: hidden;
+}
+
+/* ---------- 10. Auth pages ------------------------------------------------ */
+body .auth-card,
+body .login-panel {
+  border-radius: var(--cv-r-xl);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--cv-shadow-lg);
+}
+body .login-panel h2 { font-family: "Playfair Display", Georgia, serif; font-size: clamp(1.6rem, 4vw, 2rem); }
+body .login-panel .form-control { min-height: 3rem; }
+body .btn-auth-primary { border-radius: var(--cv-r-md); }
+
+/* ---------- 11. Admin shell ----------------------------------------------- */
+body .admin-wrap { background: var(--cv-canvas); }
+
+body .admin-topbar {
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--cv-line);
+  box-shadow: var(--cv-shadow-xs);
+}
+body .admin-role-pill { border-radius: 999px; font-weight: 700; letter-spacing: 0.04em; }
+
+body .admin-drawer,
+body .admin-sidebar-desktop { background: #fff; }
+body .admin-drawer .nav-link,
+body .admin-sidebar-desktop .nav-link {
+  border-radius: var(--cv-r-md);
+  font-weight: 500;
+  font-size: 0.93rem;
+}
+body .admin-drawer .nav-link:hover:not(.active),
+body .admin-sidebar-desktop .nav-link:hover:not(.active) { background: var(--primary-50); color: var(--primary); }
+body .admin-drawer .nav-link.active,
+body .admin-sidebar-desktop .nav-link.active {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 18px rgba(12, 59, 93, 0.22);
+}
+
+body .admin-main { padding: clamp(1rem, 2.6vw, 2rem); min-width: 0; }
+body .admin-main h1, body .admin-main .h2 { font-size: clamp(1.45rem, 2.6vw, 2rem); }
+
+body .admin-kpi-grid .soft-card,
+body .report-stat-card,
+body .sitemap-stat {
+  border-radius: var(--cv-r-lg);
+  border-left: 4px solid var(--secondary);
+}
+body .admin-kpi-grid h3 { font-family: "Playfair Display", Georgia, serif; }
+
+/* ---------- 12. Footer ---------------------------------------------------- */
+body #site-footer { margin-top: 0; }
+body .footer-link-list a { transition: color 0.18s ease, padding-left 0.18s var(--cv-ease); }
+body .footer-link-list a:hover { padding-left: 4px; }
+body .footer-social a { transition: transform 0.2s var(--cv-ease), background-color 0.2s ease; }
+body .footer-social a:hover { transform: translateY(-3px); }
+
+/* ---------- 13. Floating chat / review buttons ---------------------------- */
+body .cvr-chat-fab,
+body .cvr-write-review-fab { box-shadow: var(--cv-shadow-lg); border-radius: 999px; }
+
+/* ---------- 14. Scrollbars (desktop) -------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  * { scrollbar-width: thin; scrollbar-color: #c4d0dc transparent; }
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-thumb { background: #c4d0dc; border-radius: 999px; border: 2px solid transparent; background-clip: content-box; }
+  *::-webkit-scrollbar-thumb:hover { background: #a9b9c9; background-clip: content-box; border: 2px solid transparent; }
+}
+
+/* =============================================================================
+   PAGE LAYOUTS (round 2) — landing, about, booking, dashboard, admin
+   ========================================================================== */
+
+/* alternate section bands feel lighter and calmer */
+body .section-pad.bg-light,
+body .bg-light.section-pad { background: linear-gradient(180deg, #f4f7fb 0%, #eef3f8 100%) !important; }
+
+/* landing: hero stats + highlights */
+body .hero-stats { gap: clamp(1rem, 3vw, 2rem); }
+body .hero-stat-item { padding-right: clamp(1rem, 3vw, 2rem); }
+body .hero-stat-item strong,
+body .hero-stat-item .fw-bold { font-family: "Playfair Display", Georgia, serif; color: var(--primary); }
+
+body .hl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: clamp(0.9rem, 2vw, 1.5rem); }
+body .hl-card { padding: clamp(1.1rem, 2.2vw, 1.6rem); height: 100%; }
+body .hl-icon {
+  width: 52px; height: 52px; border-radius: 16px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--primary-50); color: var(--primary); font-size: 1.35rem;
+}
+body .highlights-divider { height: 3px; width: 56px; border-radius: 99px; background: linear-gradient(90deg, var(--accent), #f1d861); }
+
+/* about preview + metrics */
+body .about-metrics .col-4 { padding-block: 0.5rem; }
+body .about-metrics h3, body .about-metrics .display-6, body .about-metrics .fw-bold { font-family: "Playfair Display", Georgia, serif; }
+
+/* gallery mosaic */
+body .mosaic-item { overflow: hidden; border-radius: var(--cv-r-lg); }
+body .mosaic-img { transition: transform 0.5s var(--cv-ease); border-radius: var(--cv-r-lg); }
+body .mosaic-item:hover .mosaic-img { transform: scale(1.05); }
+
+/* reviews carousel controls */
+body .reviews-nav {
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #fff; color: var(--primary); border: 1px solid var(--cv-line);
+  box-shadow: var(--cv-shadow-sm);
+  transition: transform 0.2s var(--cv-ease), box-shadow 0.2s var(--cv-ease);
+}
+body .reviews-nav:hover { transform: scale(1.06); box-shadow: var(--cv-shadow-md); }
+body .reviews-dot { transition: transform 0.2s var(--cv-ease), background-color 0.2s ease; }
+
+/* booking filters + FAQ pills */
+body .booking-filter-row {
+  background: #fff;
+  border: 1px solid var(--cv-line);
+  border-radius: var(--cv-r-lg);
+  box-shadow: var(--cv-shadow-sm);
+  padding: clamp(0.9rem, 2vw, 1.4rem);
+  margin-inline: 0;
+}
+body .faq-category-pill {
+  border-radius: 999px; border: 1px solid var(--cv-line-strong); background: #fff; color: var(--primary);
+  font-weight: 600; padding: 0.45rem 1rem; transition: all 0.2s var(--cv-ease);
+}
+body .faq-category-pill:hover,
+body .faq-category-pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* calendars */
+body .calendar-day-cell { border-radius: 0.6rem; transition: background-color 0.15s ease, transform 0.15s ease; }
+body .calendar-day-cell:hover { background: var(--primary-50); }
+body .flatpickr-calendar { border-radius: var(--cv-r-lg); box-shadow: var(--cv-shadow-lg); border: 1px solid var(--cv-line); }
+
+/* customer dashboard + settings */
+body .customer-dash-tile { padding: clamp(1rem, 2vw, 1.4rem); }
+body .settings-overview-item { padding: 1rem 1.2rem; }
+
+/* admin pages: calmer headers, filter bars and report tabs */
+body .admin-main > .d-flex.justify-content-between.align-items-center.mb-4 { padding-bottom: 0.9rem; border-bottom: 1px solid var(--cv-line); }
+body .admin-main .text-muted-brand { color: var(--cv-muted) !important; }
+body .report-tab-btn {
+  border-radius: 999px; font-weight: 600; padding: 0.5rem 1.1rem;
+  border: 1px solid var(--cv-line-strong); background: #fff; color: var(--primary);
+}
+body .report-tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* live chat shell */
+body .live-chat-shell { border-radius: var(--cv-r-lg); overflow: hidden; border: 1px solid var(--cv-line); box-shadow: var(--cv-shadow-md); }
+body .cvr-chat-panel { border-radius: var(--cv-r-lg); box-shadow: var(--cv-shadow-lg); border: 1px solid var(--cv-line); overflow: hidden; }
+
+/* legal documents (Terms / Privacy) read like articles */
+body .cvr-legal-card { border-radius: var(--cv-r-lg); padding: clamp(1.25rem, 3vw, 2.25rem); }
+body .cvr-legal-section h2, body .cvr-legal-section h3 { font-size: clamp(1.1rem, 2.2vw, 1.35rem); }
+body .cvr-legal-section p, body .cvr-legal-section li { line-height: 1.75; max-width: 70ch; }
+
+/* =============================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+/* ---- Tablet and below ---- */
+@media (max-width: 991.98px) {
+  body .section-pad { padding-block: clamp(2.25rem, 7vw, 3.5rem); }
+
+  /* mobile navbar menu becomes a clean sheet */
+  body .site-header .navbar-collapse {
+    background: #fff;
+    border: 1px solid var(--cv-line);
+    border-radius: var(--cv-r-lg);
+    box-shadow: var(--cv-shadow-lg);
+    margin-top: 0.6rem;
+    padding: 0.75rem;
+    max-height: calc(100vh - 5.5rem);
+    overflow-y: auto;
+  }
+  body .nav-link-luxury { padding: 0.75rem 0.9rem; }
+
+  body .admin-main { padding: 1rem; }
+  body .admin-kpi-grid { gap: 0.75rem; }
+
+  body .modal-dialog { margin: 0.75rem; }
+}
+
+/* ---- Phones ---- */
+@media (max-width: 767.98px) {
+  body { font-size: 0.97rem; }
+
+  body .section-heading h2 { font-size: 1.55rem; }
+
+  /* comfortable touch targets */
+  body .btn { min-height: 2.75rem; }
+  body .btn-sm { min-height: 2.25rem; }
+  body .form-control, body .form-select { font-size: 16px; } /* stops iOS zoom-on-focus */
+
+  /* buttons in hero / CTA / form actions stack full width */
+  body .hero-cta,
+  body .landing-cta-panel .d-flex,
+  body .modal-footer { flex-direction: column; align-items: stretch !important; }
+  body .hero-cta .btn,
+  body .landing-cta-panel .btn,
+  body .modal-footer .btn { width: 100%; }
+  body .modal-footer > * { margin: 0; }
+
+  /* cards: tighter */
+  body .soft-card,
+  body .card,
+  body .room-card,
+  body .auth-card,
+  body .login-panel { border-radius: var(--cv-r-md); }
+  body .login-panel { padding: 1.5rem 1.15rem; }
+
+  body .room-card:hover,
+  body .soft-card:hover,
+  body .feature-card:hover,
+  body .hl-card:hover { transform: none; }
+
+  /* tables scroll sideways inside their card instead of breaking the page */
+  body .table-responsive,
+  body .admin-table-card { overflow-x: auto; }
+  body .table { min-width: 640px; }
+  body .table > :not(caption) > * > * { padding: 0.7rem 0.75rem; }
+
+  /* modals nearly full screen */
+  body .modal-dialog:not(.modal-sm) { margin: 0.5rem; max-width: none; }
+  body .modal-body { padding: 1.1rem; }
+
+  /* admin header row wraps */
+  body .admin-main > .d-flex.justify-content-between { flex-wrap: wrap; gap: 0.75rem; }
+  body .admin-main .btn { white-space: normal; }
+
+  /* pull stat blocks into 2 columns */
+  body .admin-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+
+  /* footer columns stack */
+  body .footer-top-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+
+  /* floating buttons clear the bottom edge / home bar */
+  body .cvr-chat-fab,
+  body .cvr-write-review-fab { bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }
+}
+
+/* ---- Small phones ---- */
+@media (max-width: 479.98px) {
+  body .container { padding-inline: 0.9rem; }
+  body .admin-kpi-grid { grid-template-columns: 1fr !important; }
+  body .table { min-width: 580px; }
+}
+
+/* ---- Large screens: keep line lengths and cards comfortable ---- */
+@media (min-width: 1400px) {
+  body .container { max-width: 1260px; }
+}
+
+/* ---- Respect reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body .btn, body .soft-card, body .room-card, body .dropdown-menu,
+  body .feature-card, body .hl-card { transition: none !important; animation: none !important; }
+}
+
+/* ---- Printing: leave reports / receipts exactly as designed ---- */
+@media print {
+  body { background: #fff; }
+  body .site-header, body .cvr-chat-fab, body .cvr-write-review-fab { display: none !important; }
+  body .soft-card, body .card, body .admin-table-card { box-shadow: none !important; }
+}
