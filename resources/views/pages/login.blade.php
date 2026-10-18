@@ -18,7 +18,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
   <link href="../css/style.css?v=20261004f" rel="stylesheet">
-  <link href="../css/polish.css?v=20260830i" rel="stylesheet">
+  <link href="../css/polish.css?v=20261018b" rel="stylesheet">
   <link href="../css/modern.css?v=20261018a" rel="stylesheet">
   <link href="../css/laravel-ui.css?v=20261018b" rel="stylesheet">
 
@@ -32,6 +32,16 @@
       class="auth-card card shadow-lg p-4 p-md-5 border-0 rounded-5 position-relative"
       style="max-width:560px;background:rgba(255,255,255,.96);"
     >
+
+      <a
+        href="landing.html"
+        class="cvr-auth-home-btn cvr-fade-toggle"
+        id="loginBackToLandingBtn"
+        aria-label="Back to home page"
+        title="Back to home"
+      >
+        <i class="bi bi-arrow-left"></i>
+      </a>
 
       <button
         type="button"

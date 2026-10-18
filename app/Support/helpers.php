@@ -713,10 +713,25 @@ function send_app_email(
 
 function build_email_html(string $title, string $bodyHtml): string
 {
-    // Logo is embedded in the email itself (CID) by send_app_email(), so it shows
-    // even when the site runs on localhost and Gmail can't reach a hosted URL.
-    // Optional: a public https:// link to the logo (CVR_MAIL_LOGO_URL). If empty, the embedded copy is used.
+    // Logo: Gmail/Outlook only reliably show a logo that is a public https:// image
+    // (embedded cid: images often arrive as a broken image + "1 attachment", and are
+    // not supported by API mailers such as Resend). So we use, in order:
+    //   1) CVR_MAIL_LOGO_URL (if set)
+    //   2) <site url>/images/logo-email.png when the site is public https (not localhost)
+    //   3) an embedded cid: copy (local development only)
     $publicLogo = trim((string) config('cvr.mail_logo_url', ''));
+    if ($publicLogo === '') {
+        $siteUrl  = rtrim((string) config('cvr.site_url', ''), '/');
+        $siteHost = (string) parse_url($siteUrl, PHP_URL_HOST);
+        $isPublic = str_starts_with($siteUrl, 'https://')
+            && $siteHost !== ''
+            && !in_array($siteHost, ['localhost', '127.0.0.1'], true)
+            && !str_ends_with($siteHost, '.local')
+            && !str_ends_with($siteHost, '.test');
+        if ($isPublic) {
+            $publicLogo = $siteUrl . '/images/logo-email.png';
+        }
+    }
     $logoUrl = $publicLogo !== ''
         ? htmlspecialchars($publicLogo)
         : 'cid:' . config('cvr.mail_logo_cid', 'casa_vergara_logo');

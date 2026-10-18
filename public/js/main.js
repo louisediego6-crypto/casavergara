@@ -5998,10 +5998,14 @@ function initCustomerLoginPicker() {
   let accounts = [];
 
   const backToSavedBtn = document.getElementById("loginBackToSavedBtn");
+  const backToLandingBtn = document.getElementById("loginBackToLandingBtn");
 
   const showPanel = createCvrPanelSwitcher({ picker, form: formPanel, password: passwordPanel }, (which) => {
 
-    backToSavedBtn?.classList.toggle("cvr-fade-hidden", which !== "form" || !accounts.length);
+    const showSavedBack = which === "form" && accounts.length > 0;
+    backToSavedBtn?.classList.toggle("cvr-fade-hidden", !showSavedBack);
+    // both arrows live in the same corner, so only one is visible at a time
+    backToLandingBtn?.classList.toggle("cvr-fade-hidden", showSavedBack);
   });
 
   const showPwAlert = (message) => {

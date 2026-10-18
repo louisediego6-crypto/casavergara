@@ -1999,3 +1999,30 @@ a.contact-info-card:focus-visible {
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
+
+
+/* Login card: round "back to landing page" arrow, top-left inside the card */
+.cvr-auth-home-btn {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  color: #0c3b5d;
+  font-size: 1.25rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(12, 59, 93, 0.18);
+  transition: transform .15s ease, background .15s ease, color .15s ease;
+}
+.cvr-auth-home-btn:hover,
+.cvr-auth-home-btn:focus-visible {
+  background: #0c3b5d;
+  color: #fff;
+  transform: translateX(-2px);
+}
