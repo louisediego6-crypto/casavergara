@@ -696,7 +696,8 @@ function send_app_email(
             $logoCid  = (string) config('cvr.mail_logo_cid', 'casa_vergara_logo');
             $logoPath = public_path('images/logo-email.png');
             if (str_contains($htmlBody, 'cid:' . $logoCid) && is_file($logoPath)) {
-                $message->getSymfonyMessage()->embedFromPath($logoPath, $logoCid, 'image/png');
+                $logoPart = $message->getSymfonyMessage()->embedFromPath($logoPath, $logoCid, 'image/png');
+                $logoPart->setContentId($logoCid);
             }
 
             $message->html($htmlBody);
