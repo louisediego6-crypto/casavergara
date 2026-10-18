@@ -26,6 +26,17 @@
 
 <body class="login-bg">
 
+  <a
+    href="landing.html"
+    class="cvr-home-back btn btn-light rounded-circle shadow-sm d-inline-flex align-items-center justify-content-center"
+    id="loginHomeBtn"
+    aria-label="Back to home"
+    title="Back to home"
+    style="position:fixed; top:1.25rem; left:1.25rem; width:44px; height:44px; z-index:1050;"
+  >
+    <i class="bi bi-arrow-left fs-5 text-brand"></i>
+  </a>
+
   <main class="form-shell">
 
     <div
