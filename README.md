@@ -1,4 +1,4 @@
-# Casa Vergara Resort – Laravel 11 version
+# Casa Vergara Resort – Laravel
 
 This is the original plain-PHP project (`resorts/`) converted to Laravel. The website, pages, CSS/JS and every
 API behaviour are the same; only the plumbing changed (routing, sessions, config, database setup).
