@@ -52,9 +52,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json(['success' => false, 'message' => 'Not found.'], 404);
             }
             $status = $e instanceof HttpExceptionInterface ? $e->getStatusCode() : 500;
-            return response()->json([
-                'success' => false,
-                'message' => $status === 405 ? 'Invalid request method.' : 'Something went wrong on the server. Please try again.',
-            ], $status);
+           return response()->json(array_filter([
+    'success' => false,
+    'message' => $status === 405 ? 'Invalid request method.' : 'Something went wrong on the server. Please try again.',
+    'debug'   => config('app.debug') ? $e->getMessage() : null,
+]), $status);
         });
     })->create();
